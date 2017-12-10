@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<turing type="simple" variant="unbound" name="Tape-inverter" description="Simply inverts the content of the tape (0 become 1 and vice-versa) until # is found">
+	<input alphabet="1,0,#"/>
+	<tape alphabet="1,0,#" content="011010100101010010010101010111100001#"/>
+	<states>
+		<state label="q0"/>
+		<state label="q1"/>
+		<state label="q2"/>
+	</states>
+	<starting state="q0"/>
+	<accepting states="q2"/>
+	<rejecting states="q1"/>
+	
+	<transitions>
+		<transition from_state="q0" tapeSymbol="0" to_state="q1" new_tapeSymbol="1" direction="R"/>
+		<transition from_state="q0" tapeSymbol="1" to_state="q1" new_tapeSymbol="0" direction="R"/>
+		<transition from_state="q1" tapeSymbol="0" to_state="q1" new_tapeSymbol="1" direction="R"/>
+		<transition from_state="q1" tapeSymbol="1" to_state="q1" new_tapeSymbol="0" direction="R"/>
+		<transition from_state="q1" tapeSymbol="#" to_state="q2" new_tapeSymbol="#" direction="R"/>
+		<transition from_state="q0" tapeSymbol="#" to_state="q2" new_tapeSymbol="#" direction="R"/>
+	</transitions>
+
+	
+
+</turing>
+	

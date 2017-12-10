@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<turing type="simple" variant="unbound" name="MultiTape format example" description="Just a simple multi-tape xml file to allow testing of the parsing...   According to Sipser book, tapes can have no moves ! So direction can be L,R,S" variant="unbound">
+      <input alphabet="#,1,0" />
+      <states>
+            <state label="q2" />
+            <state label="q1" />
+            <state label="q0" />
+      </states>
+      <starting state="q0" />
+      <accepting states="q2" />
+      <rejecting states="q1" />
+      <tapes>
+            <tape indice="1" alphabet="#,1,0" content="">
+                  <transitions>
+                        <transition from_state="q1" tapeSymbol="1" to_state="q1" new_tapeSymbol="0" direction="S" />
+                  </transitions>
+            </tape>
+            <tape indice="0" alphabet="#,1,0" content="1010010101010010101#">
+                  <transitions>
+                        <transition from_state="q1" tapeSymbol="#" to_state="q2" new_tapeSymbol="#" direction="L" />
+                        <transition from_state="q1" tapeSymbol="0" to_state="q1" new_tapeSymbol="1" direction="L" />
+                        <transition from_state="q1" tapeSymbol="1" to_state="q1" new_tapeSymbol="0" direction="L" />
+                        <transition from_state="q0" tapeSymbol="0" to_state="q1" new_tapeSymbol="1" direction="L" />
+                        <transition from_state="q0" tapeSymbol="#" to_state="q2" new_tapeSymbol="#" direction="L" />
+                        <transition from_state="q0" tapeSymbol="1" to_state="q1" new_tapeSymbol="0" direction="L" />
+                  </transitions>
+            </tape>
+      </tapes>
+</turing>
+

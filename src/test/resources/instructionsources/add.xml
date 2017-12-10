@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<turing type="simple" variant="unbound" name="Integer adder" description="Add two integers of the form S0101010...X#01001#">
+        <input alphabet="1,S,X,0,#"/>
+        <tape alphabet="1,S,X,0,#" content="S1010X#0101#"/>
+        <states>
+                <state label="qStart"/>
+                <state label="qS"/>
+
+                <state label="qScanNC"/>
+                <state label="qScan2NC"/>
+                <state label="qReadNC"/>
+                <state label="qZeroNC"/>
+                <state label="qOneNC"/>
+                <state label="qOne2NC"/>
+                <state label="qZero2NC"/>
+                <state label="qZero3aNC"/>
+                <state label="qZero3bNC"/>
+                <state label="qOne3bNC"/>
+                <state label="qOne3aNC"/>
+                <state label="qScanC"/>
+                <state label="qScan2C"/>
+                <state label="qReportC"/>
+                <state label="qReport2C"/>
+                <state label="qReport3aC"/>
+                <state label="qReport3bC"/>
+                <state label="qReadC"/>
+                <state label="qOneC"/>
+                <state label="qOne2C"/>
+                <state label="qOne3aC"/>
+                <state label="qOne3bC"/>
+                <state label="qDone"/>
+        </states>
+        <starting state="qStart"/>
+        <accepting states="qDone"/>
+        <rejecting states="qS"/>
+
+        <transitions>
+                <!-- read heading S -->
+                <transition from_state="qStart" tapeSymbol="S" to_state="qS" new_tapeSymbol="S" direction="R"/>
+
+                <transition from_state="qS" tapeSymbol="0" to_state="qScanNC" new_tapeSymbol="0" direction="R"/>
+                <transition from_state="qS" tapeSymbol="1" to_state="qScanNC" new_tapeSymbol="1" direction="R"/>
+
+                <!-- NO Carry : scan to first # -->
+                <transition from_state="qScanNC" tapeSymbol="0" to_state="qScanNC" new_tapeSymbol="0" direction="R"/>
+                <transition from_state="qScanNC" tapeSymbol="1" to_state="qScanNC" new_tapeSymbol="1" direction="R"/>
+                <transition from_state="qScanNC" tapeSymbol="X" to_state="qScanNC" new_tapeSymbol="X" direction="R"/>
+                <transition from_state="qScanNC" tapeSymbol="#" to_state="qScan2NC" new_tapeSymbol="#" direction="R"/>
+                <!-- Scan second integer to first # -->
+                <transition from_state="qScan2NC" tapeSymbol="1" to_state="qScan2NC" new_tapeSymbol="1" direction="R"/>
+                <transition from_state="qScan2NC" tapeSymbol="0" to_state="qScan2NC" new_tapeSymbol="0" direction="R"/>
+                <transition from_state="qScan2NC" tapeSymbol="#" to_state="qReadNC" new_tapeSymbol="#" direction="L"/>
+                <!-- Read the digit to add, if we have #, we are done -->
+                <transition from_state="qReadNC" tapeSymbol="#" to_state="qDone" new_tapeSymbol="#" direction="L"/>
+                <transition from_state="qReadNC" tapeSymbol="0" to_state="qZeroNC" new_tapeSymbol="#" direction="L"/>
+                <transition from_state="qReadNC" tapeSymbol="1" to_state="qOneNC" new_tapeSymbol="#" direction="L"/>
+                <!-- Go back to first integer -->
+                <transition from_state="qZeroNC" tapeSymbol="0" to_state="qZeroNC" new_tapeSymbol="0" direction="L"/>
+                <transition from_state="qZeroNC" tapeSymbol="1" to_state="qZeroNC" new_tapeSymbol="1" direction="L"/>
+                <transition from_state="qZeroNC" tapeSymbol="#" to_state="qZeroNC" new_tapeSymbol="#" direction="L"/>
+                <transition from_state="qOneNC" tapeSymbol="0" to_state="qOneNC" new_tapeSymbol="0" direction="L"/>
+                <transition from_state="qOneNC" tapeSymbol="1" to_state="qOneNC" new_tapeSymbol="1" direction="L"/>
+                <transition from_state="qOneNC" tapeSymbol="#" to_state="qOneNC" new_tapeSymbol="#" direction="L"/>
+                <!-- Once X reached, go left one more step to find what to do -->
+                <transition from_state="qOneNC" tapeSymbol="X" to_state="qOne2NC" new_tapeSymbol="X" direction="L"/>
+                <transition from_state="qZeroNC" tapeSymbol="X" to_state="qZero2NC" new_tapeSymbol="X" direction="L"/>
+                <!-- If we got a zero to add, just replace X by the value found and go back to scanNC-->
+                <transition from_state="qZero2NC" tapeSymbol="0" to_state="qZero3aNC" new_tapeSymbol="X" direction="R"/>
+                <transition from_state="qZero2NC" tapeSymbol="1" to_state="qZero3bNC" new_tapeSymbol="X" direction="R"/>
+                <transition from_state="qZero3aNC" tapeSymbol="X" to_state="qScanNC" new_tapeSymbol="0" direction="R"/>
+                <transition from_state="qZero3bNC" tapeSymbol="X" to_state="qScanNC" new_tapeSymbol="1" direction="R"/>
+                <!-- If we got a one to add, we could get a carry -->
+                <transition from_state="qOne2NC" tapeSymbol="0" to_state="qOne3aNC" new_tapeSymbol="X" direction="R"/>
+                <transition from_state="qOne3aNC" tapeSymbol="X" to_state="qScanNC" new_tapeSymbol="1" direction="R"/>
+                <!-- With a one, we got a carry ! -->
+                <transition from_state="qOne2NC" tapeSymbol="1" to_state="qOne3bNC" new_tapeSymbol="X" direction="R"/>
+                <transition from_state="qOne3bNC" tapeSymbol="X" to_state="qScanC" new_tapeSymbol="0" direction="R"/>
+
+                <!-- WITH Carry to report -->
+                <transition from_state="qScanC" tapeSymbol="0" to_state="qScanC" new_tapeSymbol="0" direction="R"/>
+                <transition from_state="qScanC" tapeSymbol="1" to_state="qScanC" new_tapeSymbol="1" direction="R"/>
+                <transition from_state="qScanC" tapeSymbol="X" to_state="qScanC" new_tapeSymbol="X" direction="R"/>
+                <transition from_state="qScanC" tapeSymbol="#" to_state="qScan2C" new_tapeSymbol="#" direction="R"/>
+                <!-- First # met -->
+                <transition from_state="qScan2C" tapeSymbol="#" to_state="qReadC" new_tapeSymbol="#" direction="L"/>
+                <transition from_state="qScan2C" tapeSymbol="1" to_state="qScan2C" new_tapeSymbol="1" direction="R"/>
+                <transition from_state="qScan2C" tapeSymbol="0" to_state="qScan2C" new_tapeSymbol="0" direction="R"/>
+                <!-- Trailing # found, read lsb -->
+                <!-- Report Last carry if another # is found-->
+                <transition from_state="qReadC" tapeSymbol="#" to_state="qReportC" new_tapeSymbol="#" direction="L"/>
+                <transition from_state="qReportC" tapeSymbol="#" to_state="qReportC" new_tapeSymbol="#" direction="L"/>
+                <transition from_state="qReportC" tapeSymbol="1" to_state="qReportC" new_tapeSymbol="1" direction="L"/>
+                <transition from_state="qReportC" tapeSymbol="0" to_state="qReportC" new_tapeSymbol="0" direction="L"/>
+                <transition from_state="qReportC" tapeSymbol="X" to_state="qReport2C" new_tapeSymbol="X" direction="L"/>
+                <!-- Add to the bit found -->
+                <transition from_state="qReport2C" tapeSymbol="0" to_state="qReport3aC" new_tapeSymbol="X" direction="R"/> <!-- changed to X instead of 0 -->
+                <transition from_state="qReport2C" tapeSymbol="1" to_state="qReport3bC" new_tapeSymbol="1" direction="R"/>
+                <transition from_state="qReport3aC" tapeSymbol="X" to_state="qDone" new_tapeSymbol="1" direction="L"/>
+                <transition from_state="qReport3bC" tapeSymbol="X" to_state="qDone" new_tapeSymbol="0" direction="L"/>
+                <!-- Otherwhise, read 2nd integer lsb -->
+                <!-- If zero, then the carry bring us to NC case -->
+                <transition from_state="qReadC" tapeSymbol="0" to_state="qOneNC" new_tapeSymbol="#" direction="L"/>
+                <!-- else, one, carry will add with it... -->
+                <transition from_state="qReadC" tapeSymbol="1" to_state="qOneC" new_tapeSymbol="#" direction="L"/>
+                <transition from_state="qOneC" tapeSymbol="#" to_state="qOneC" new_tapeSymbol="#" direction="L"/>
+                <transition from_state="qOneC" tapeSymbol="0" to_state="qOneC" new_tapeSymbol="0" direction="L"/>
+                <transition from_state="qOneC" tapeSymbol="1" to_state="qOneC" new_tapeSymbol="1" direction="L"/>
+                <transition from_state="qOneC" tapeSymbol="X" to_state="qOne2C" new_tapeSymbol="X" direction="L"/>
+                <!-- add carry + 1 + value found -->
+                <transition from_state="qOne2C" tapeSymbol="1" to_state="qOne3bC" new_tapeSymbol="X" direction="R"/>
+                <transition from_state="qOne2C" tapeSymbol="0" to_state="qOne3aC" new_tapeSymbol="X" direction="R"/>
+                <!-- if 0, -> 10. If 1 -> 11 -->
+                <transition from_state="qOne3aC" tapeSymbol="X" to_state="qScanC" new_tapeSymbol="0" direction="R"/>
+                <transition from_state="qOne3bC" tapeSymbol="X" to_state="qScanC" new_tapeSymbol="1" direction="R"/>
+        </transitions>
+</turing>

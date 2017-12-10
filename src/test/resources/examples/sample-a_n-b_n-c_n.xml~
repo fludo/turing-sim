@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<turing type="simple" name="an_bn_cn verifier" description="Check if the content of the tape is a^n followed by b^n and c^n">
+	<input alphabet="a,b,c,x,y,z"/>
+	<tape alphabet="a,b,c,x,y,z" content="aaabbbccc"/>
+	<states>
+		<state label="q0"/>
+		<state label="q1"/>
+		<state label="q2"/>
+		<state label="q3"/>
+		<state label="q4"/>
+		<state label="q5"/>
+		<state label="q6"/>
+		<state label="q7"/>
+		
+	</states>
+	<starting state="q0"/>
+	<accepting states="q6,q7"/>
+	<rejecting states="q1"/>
+	
+	<transitions>
+		<transition from_state="q0" tapeSymbol="a" to_state="q1" new_tapeSymbol="x" direction="R"/>
+		
+		<transition from_state="q1" tapeSymbol="a" to_state="q1" new_tapeSymbol="a" direction="R"/>
+		<transition from_state="q1" tapeSymbol="y" to_state="q1" new_tapeSymbol="y" direction="R"/>
+		<transition from_state="q1" tapeSymbol="b" to_state="q2" new_tapeSymbol="y" direction="R"/>
+		
+		<transition from_state="q2" tapeSymbol="b" to_state="q2" new_tapeSymbol="b" direction="R"/>
+		<transition from_state="q2" tapeSymbol="z" to_state="q2" new_tapeSymbol="z" direction="R"/>
+		<transition from_state="q2" tapeSymbol="c" to_state="q3" new_tapeSymbol="z" direction="L"/>
+		
+		<transition from_state="q3" tapeSymbol="a" to_state="q3" new_tapeSymbol="a" direction="L"/>
+		<transition from_state="q3" tapeSymbol="b" to_state="q3" new_tapeSymbol="b" direction="L"/>
+		<transition from_state="q3" tapeSymbol="z" to_state="q3" new_tapeSymbol="z" direction="L"/>
+		<transition from_state="q3" tapeSymbol="y" to_state="q3" new_tapeSymbol="y" direction="L"/>
+		<transition from_state="q3" tapeSymbol="x" to_state="q0" new_tapeSymbol="x" direction="R"/>
+		
+		<transition from_state="q0" tapeSymbol="y" to_state="q4" new_tapeSymbol="y" direction="L"/>
+		<transition from_state="q4" tapeSymbol="x" to_state="q4" new_tapeSymbol="x" direction="L"/>
+		<!-- <transition from_state="q0" tapeSymbol="y" to_state="q4" new_tapeSymbol="y" direction="L"/>
+		to continue
+		-->
+
+	</transitions>
+
+	
+
+</turing>
+	

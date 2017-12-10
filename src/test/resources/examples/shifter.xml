@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<turing type="simple" variant="unbound" name="Simple shifter" description="Shift a string of the form [0,1]*# to the right">
+      <input alphabet="#,1,0,␣" />
+      <tape alphabet="#,1,0,␣" content="" />
+      <states>
+            <state label="q_1" />
+            <state label="q_0" />
+            <state label="sharp" />
+            <state label="start" />
+            <state label="done" />
+      </states>
+      <starting state="start" />
+      <accepting states="done" />
+      <rejecting states="start" />
+      <transitions>
+            <transition from_state="start" tapeSymbol="1" to_state="q_1" new_tapeSymbol="␣" direction="R" />
+            <transition from_state="start" tapeSymbol="0" to_state="q_0" new_tapeSymbol="␣" direction="R" />
+	    <transition from_state="start" tapeSymbol="␣" to_state="done" new_tapeSymbol="␣" direction="R" />
+	    <transition from_state="q_1" tapeSymbol="#" to_state="sharp" new_tapeSymbol="1" direction="R" />
+	    <transition from_state="q_1" tapeSymbol="␣" to_state="done" new_tapeSymbol="1" direction="R" />
+	    <transition from_state="q_1" tapeSymbol="0" to_state="q_0" new_tapeSymbol="1" direction="R" />
+	    <transition from_state="q_1" tapeSymbol="1" to_state="q_1" new_tapeSymbol="1" direction="R" />
+	    <transition from_state="q_0" tapeSymbol="#" to_state="sharp" new_tapeSymbol="0" direction="R" />
+	    <transition from_state="q_0" tapeSymbol="␣" to_state="done" new_tapeSymbol="0" direction="R" />
+	    <transition from_state="q_0" tapeSymbol="1" to_state="q_1" new_tapeSymbol="0" direction="R" />
+	    <transition from_state="q_0" tapeSymbol="0" to_state="q_0" new_tapeSymbol="0" direction="R" />
+	    <transition from_state="sharp" tapeSymbol="␣" to_state="done" new_tapeSymbol="#" direction="R" />
+      </transitions>
+</turing>
+

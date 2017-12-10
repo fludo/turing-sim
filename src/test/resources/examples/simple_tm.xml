@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<turing type="simple" variant="unbound" name="A simple turing machine example" description="A short description">
+	<input alphabet="1,0"/>
+	<tape alphabet="1,0,#" content="1010010101010010101#"/>
+	<states>
+		<state label="q0"/>
+		<state label="q1"/>
+		<state label="q2"/>
+		<state label="q4"/>
+	</states>
+	<starting state="q0"/>
+	<accepting states="q0,q1"/>
+	<rejecting states="q2"/>
+	
+	<transitions>
+		<transition from_state="q0" tapeSymbol="0" to_state="q1" new_tapeSymbol="1" direction="L"/>
+	</transitions>
+
+	
+
+</turing>
+	

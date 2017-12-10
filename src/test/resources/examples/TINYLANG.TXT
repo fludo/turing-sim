@@ -1,0 +1,247 @@
+----------- TEST FOR JUMPS ------------
+MAIN(){
+INIT(X,9);
+INIT(A,1);
+INIT(B,0);
+INIT(C,3);
+INC(X);
+ODD(X);
+JUMPR(LB);
+PRINT(A);
+GOTO(END);
+LABEL_LC;
+PRINT(C);
+GOTO(END);
+LABEL_LB;
+PRINT(B);
+GOTO(LC);
+GOTO(END);
+LABEL_END;
+};
+-- affiche B vaut 0, C vaut 3 
+Starting parsing...
+Parsing main...
+INIT(X,9)-> accept
+INIT(A,1)-> accept
+INIT(B,0)-> accept
+INIT(C,3)-> accept
+INC(X)-> accept
+ODD(X)-> reject
+JUMPR(LB)-> accept
+Value of : B is 0 (int value is : 0)
+GOTO(LC)-> accept
+Value of : C is 11 (int value is : 3)
+GOTO(END)-> accept
+--------------------------------------------
+
+------ Test for instr 1 -------------------
+MAIN(){
+INIT(A,1);
+INIT(X,25);
+PRINT(X);
+INC(X);
+PRINT(X);
+DEC(X);
+PRINT(X);
+ADDI(X,10);
+PRINT(X);
+SUBI(X,10);
+PRINT(X);
+ODD(X);
+EVEN(X);
+INC(X);
+PRINT(X);
+ODD(X);
+EVEN(X);
+};
+
+--- displays : --------
+Starting parsing...
+Parsing main...
+INIT(A,1)-> accept
+INIT(X,25)-> accept
+Value of : X is 11001 (int value is : 25)
+INC(X)-> accept
+Value of : X is 11010 (int value is : 26)
+DEC(X)-> accept
+Value of : X is 11001 (int value is : 25)
+ADDI(X,10)-> accept
+Value of : X is 100011 (int value is : 35)
+SUBI(X,10)-> accept
+Value of : X is 11001 (int value is : 25)
+ODD(X)-> accept
+EVEN(X)-> reject
+INC(X)-> accept
+Value of : X is 11010 (int value is : 26)
+ODD(X)-> reject
+EVEN(X)-> accept
+
+
+------------------ Test for jumpar(..,..) ----------------
+
+MAIN(){
+INIT(X,9);
+PRINT(X);
+LABEL_START;
+INC(X);
+PRINT(X);
+ODD(X);
+JUMPAR(END,START);
+LABEL_END;
+PRINT(X);
+};
+
+
+--- displays : -------
+
+Starting parsing...
+Parsing main...
+Added Label : START
+Added Label : END
+INIT(X,9)-> accept
+Value of : X is 1001 (int value is : 9)
+LABEL_START-> accept
+INC(X)-> accept
+Value of : X is 1010 (int value is : 10)
+ODD(X)-> reject
+JUMPAR(END,START)-> accept
+INC(X)-> accept
+Value of : X is 1011 (int value is : 11)
+ODD(X)-> accept
+JUMPAR(END,START)-> accept
+Value of : X is 1011 (int value is : 11)
+
+--------------- Test jumpa and jumpr -------------------
+MAIN(){
+INIT(X,9);
+PRINT(X);
+LABEL_START;
+INC(X);
+PRINT(X);
+ODD(X);
+JUMPR(START);
+ODD(X);
+JUMPA(END2);
+LABEL_END;
+PRINT(X);
+LABEL_END2;
+PRINT(X);
+};
+
+
+-- displays : ----------
+INIT(X,9)-> accept
+Value of : X is 1001 (int value is : 9)
+LABEL_START-> accept
+INC(X)-> accept
+Value of : X is 1010 (int value is : 10)
+ODD(X)-> reject
+JUMPR(START)-> accept
+INC(X)-> accept
+Value of : X is 1011 (int value is : 11)
+ODD(X)-> accept
+JUMPR(START)-> accept
+ODD(X)-> accept
+JUMPA(END2)-> accept
+Value of : X is 1011 (int value is : 11)
+
+
+--------------- Test2 jumpa and jumpr -------------------
+MAIN(){
+INIT(X,9);
+PRINT(X);
+LABEL_START;
+INC(X);
+PRINT(X);
+ODD(X);
+JUMPA(START);
+DEC(X);
+PRINT(X);
+ODD(X);
+JUMPR(END2);
+LABEL_END;
+PRINT(X);
+LABEL_END2;
+PRINT(X);
+};
+
+--- displays : ----------
+
+
+INIT(X,9)-> accept
+Value of : X is 1001 (int value is : 9)
+LABEL_START-> accept
+INC(X)-> accept
+Value of : X is 1010 (int value is : 10)
+ODD(X)-> reject
+JUMPA(START)-> accept
+DEC(X)-> accept
+Value of : X is 1001 (int value is : 9)
+ODD(X)-> accept
+JUMPR(END2)-> accept
+LABEL_END-> accept
+Value of : X is 1001 (int value is : 9)
+LABEL_END2-> accept
+Value of : X is 1001 (int value is : 9)
+
+
+----------- Other test for instr : ----------
+MAIN(){
+INIT(A,1);
+INIT(X,25);
+PRINT(X);
+ADD(X,A);
+PRINT(X);
+SUB(X,A);
+PRINT(X);
+};
+
+--- displays : ----
+
+INIT(A,1)-> accept
+INIT(X,25)-> accept
+Value of : X is 11001 (int value is : 25)
+ADD(X,A)-> accept
+Value of : X is 11010 (int value is : 26)
+SUB(X,A)-> accept
+Value of : X is 11001 (int value is : 25)
+
+
+--- routine test  ---
+MAIN(){
+INIT(X,20);
+INIT(Y,20);
+CALL_INCX;
+CALL_INCX;
+CALL_DECX;
+CALL_INCX;
+CALL_DECX;
+};
+
+ROUTINE(INCX){
+INC(X);
+PRINT(X);
+};
+ROUTINE(DECX){
+DEC(X);
+PRINT(X);
+};
+
+--- prints ----
+INIT(X,20)-> accept
+INIT(Y,20)-> accept
+INC(X)-> accept
+Value of : X is 10101 (int value is : 21)
+CALL_INCX-> accept
+INC(X)-> accept
+Value of : X is 10110 (int value is : 22)
+CALL_INCX-> accept
+DEC(X)-> accept
+Value of : X is 10101 (int value is : 21)
+CALL_DECX-> accept
+INC(X)-> accept
+Value of : X is 10110 (int value is : 22)
+CALL_INCX-> accept
+DEC(X)-> accept
+Value of : X is 10101 (int value is : 21)
+CALL_DECX-> accept
