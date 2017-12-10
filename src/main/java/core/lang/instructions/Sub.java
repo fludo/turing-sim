@@ -96,7 +96,7 @@ public class Sub implements TInstruction {
     }
 
     private void buildTm() throws Exception {
-        this.tm_ = (SimpleTuringMachine) new XMLReader().read("instructionsources/sub.xml");
+        this.tm_ = (SimpleTuringMachine) new XMLReader().read("src/test/resources/instructionsources/sub.xml");
         this.tm_.tapeContentIs("S" + TinyLangUtils.binaryTo10lenght(this.input_[0]) +
                 "X#" + TinyLangUtils.twosComplement(this.input_[1]) + "#");
     }

@@ -103,7 +103,7 @@ public class Add implements TInstruction {
     }
 
     private void buildTm() throws Exception {
-        this.tm_ = (SimpleTuringMachine) new XMLReader().read("instructionsources/add.xml");
+        this.tm_ = (SimpleTuringMachine) new XMLReader().read("src/test/resources/instructionsources/add.xml");
         this.tm_.tapeContentIs("S0" + this.input_[0] + "X#" + this.input_[1] + "#");
         
     }

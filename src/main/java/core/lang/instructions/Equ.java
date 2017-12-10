@@ -88,7 +88,7 @@ public class Equ implements TInstruction {
     }
 
     private void buildTm() throws Exception {
-        this.tm_ = (MultiTapeTuringMachine) new XMLReader().read("instructionsources/equ.xml");
+        this.tm_ = (MultiTapeTuringMachine) new XMLReader().read("src/test/resources/instructionsources/equ.xml");
         //System.out.println("TM built !"+this.tm_);
         this.tm_.tapeContentIs("0", this.input_[0] + "#");
         this.tm_.tapeContentIs("1", this.input_[1] + "#");

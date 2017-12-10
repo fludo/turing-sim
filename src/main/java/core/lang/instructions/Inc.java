@@ -89,7 +89,7 @@ public class Inc implements TInstruction {
     }
 
     private void buildTm() throws Exception {
-        this.tm_ = (SimpleTuringMachine) new XMLReader().read("instructionsources/inc.xml");
+        this.tm_ = (SimpleTuringMachine) new XMLReader().read("src/test/resources/instructionsources/inc.xml");
         this.tm_.tapeContentIs(this.input_[0] + "#");
         //System.out.println("Content set..."+this.tm_.tapeString());
     }

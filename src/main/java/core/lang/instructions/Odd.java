@@ -84,7 +84,7 @@ public class Odd implements TInstruction {
     }
 
     private void buildTm() throws Exception {
-        this.tm_ = (SimpleTuringMachine) new XMLReader().read("instructionsources/odd.xml");
+        this.tm_ = (SimpleTuringMachine) new XMLReader().read("src/test/resources/instructionsources/odd.xml");
         this.tm_.tapeContentIs(this.input_[0] + "#");
         
     }

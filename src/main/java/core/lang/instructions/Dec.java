@@ -28,7 +28,6 @@ import core.SimpleTapeRunner;
 import core.SimpleTuringMachine;
 import core.exception.InstructionParameterException;
 import core.io.XMLReader;
-import java.security.InvalidParameterException;
 
 /**
  *
@@ -87,7 +86,7 @@ public class Dec implements TInstruction {
     }
 
     private void buildTm() throws Exception {
-        this.tm_ = (SimpleTuringMachine) new XMLReader().read("instructionsources/dec.xml");
+        this.tm_ = (SimpleTuringMachine) new XMLReader().read("src/test/resources/instructionsources/dec.xml");
         this.tm_.tapeContentIs(this.input_[0] + "#");
 
     }
