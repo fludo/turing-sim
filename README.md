@@ -1,2 +1,2 @@
-# turing-sim
+# Turing-sim
 Emulateur de Machine de Turing
