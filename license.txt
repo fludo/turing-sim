@@ -1,0 +1,39 @@
+/*
+ *   Copyright (©) 2009 | 16 January 2009 | EPFL (Ecole Polytechnique fédérale de Lausanne)
+ *   Laboratory ALGO+LMA
+ *
+ *   TuringSim is free software ; you can redistribute it and/or modify it under the terms of the
+ *   GNU General Public License as published by the Free Software Foundation ; either version 3 of
+ *   the License, or (at your option) any later version.
+ *
+ *   TuringSim is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY ;
+ *   without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License along with TuringSim ;
+ *   if not, write to the Free Software Foundation,
+ *
+ *   Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ *
+ *
+ *   Author : Ludovic Favre <ludovic.favre@a3.epfl.ch>
+ *
+ *   Project supervisor : Mahdi Cheraghchi <mahdi.cheraghchi@epfl.ch>
+ *
+ *   Web site : http://www.ludovicfavre.ch
+ *
+ */
+
+For more informations about EPFL GPL licensing :
+http://elle.epfl.ch/Publier-sous-licence-GPL-a-l-EPFL
+
+License
+-------
+Most of the content of this program is under the terms of the GNU GPLv3.
+File with no license specified (as png's, svg's) are under the term of their
+own license.
+
+SVG arrows and Turing Logo are under the "Creative Commons Attribution ShareAlike 2.5"
+license terms. (most of them are from http://commons.wikimedia.org/wiki/Main_Page)
+
+For others files, please refere to the author's website for more details.
